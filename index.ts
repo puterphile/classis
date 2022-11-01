@@ -8,54 +8,57 @@ const hasStringifier = (object: any) =>
   object.toString !== Object.prototype.toString;
 
 export function classis(...args: any) {
-  const object: { [k: string]: boolean } = {};
+  let array: string[] = [];
 
-  for (let index in arguments) {
-    const argument = arguments[index];
+  let index = 0;
+  while (index < arguments.length) {
+    const argument = arguments[index++];
 
     if (!argument) continue;
 
     const type = typeof argument;
 
     switch (type) {
-      case "string":
-      case "number":
-        object[argument] = true;
-        continue;
       case "function":
-        object[argument()] = true;
+        array.push(argument());
         continue;
       case "object":
         if (Array.isArray(argument)) {
           if (!argument.length) continue;
           const inner: string = classis(...(argument as any).flat(Infinity));
-          inner.split(" ").map((className) => (object[className] = true));
+          array = array.concat(inner.split(" "));
         } else {
           if (hasStringifier(argument)) {
-            object[`${argument}`] = true;
+            array.push(`${argument}`);
             continue;
           }
 
           for (let key in argument) {
             const value = argument[key];
-            if (typeof value == "boolean") object[key] = !!value;
-            else {
-              if (!value) continue;
-              object[key] = false;
-              object[value] = true;
+
+            if (typeof value === "boolean") {
+              if (value) array.push(key);
+              continue;
             }
+
+            array.splice(
+              array.findIndex((el) => el == key),
+              1
+            );
+
+            array.push(value);
           }
         }
         continue;
+      case "string":
+      case "number":
       default:
-        object[`${argument}`] = true;
+        array.push(`${argument}`);
         continue;
     }
   }
 
-  return Object.keys(object)
-    .filter((className) => object[className])
-    .join(" ");
+  return array.join(" ");
 }
 
 export default classis;
