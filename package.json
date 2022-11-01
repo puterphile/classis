@@ -7,6 +7,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
+    "benchmark": "ts-node-dev benchmark/index.ts",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build"
   },
@@ -15,7 +16,9 @@
     "url": "git+https://github.com/puterphile/classis.git"
   },
   "files": [
-    "dist"
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/index.js.map"
   ],
   "keywords": [
     "classnames",
@@ -38,9 +41,12 @@
   },
   "homepage": "https://github.com/puterphile/classis#readme",
   "devDependencies": {
+    "@types/benchmark": "^2.1.2",
     "@types/jest": "^29.2.0",
+    "benchmark": "^2.1.4",
     "jest": "^29.2.2",
     "ts-jest": "^29.0.3",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^4.8.4"
   }
 }
