@@ -41,6 +41,7 @@
   },
   "homepage": "https://github.com/puterphile/classis#readme",
   "devDependencies": {
+    "@scriptum/classis": "^1.0.0",
     "@types/benchmark": "^2.1.2",
     "@types/jest": "^29.2.0",
     "benchmark": "^2.1.4",
