@@ -1,5 +1,5 @@
 {
-  "name": "classis",
+  "name": "@scriptum/classis",
   "version": "1.0.0",
   "description": "utility to construct html classes conditionally",
   "main": "dist/index.js",
